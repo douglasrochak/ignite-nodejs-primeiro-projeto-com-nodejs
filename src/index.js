@@ -133,4 +133,16 @@ app.put("/account", verifyIfExistsAccountCPF, (request, response) => {
   return response.status(201).send();
 });
 
+app.delete("/account", verifyIfExistsAccountCPF, (request, response) => {
+  const { customer } = request;
+
+  const customerIndex = customers.findIndex(
+    (customerIndex) => customerIndex.id === customer.id
+  );
+
+  customers.splice(customerIndex, 1);
+
+  return response.status(200).json(customers);
+});
+
 app.listen(3333);
